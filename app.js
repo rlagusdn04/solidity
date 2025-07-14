@@ -1,11 +1,25 @@
-// Firebase SDK 초기화 (실제 프로젝트 config로 적용)
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { getFirestore } from "firebase/firestore";
+
+// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyDCa1rKcGYEAOCVsNWcxjBwj7tkLLHPQPs",
   authDomain: "trove-28de5.firebaseapp.com",
   projectId: "trove-28de5",
+  storageBucket: "trove-28de5.firebasestorage.app",
+  messagingSenderId: "906681488094",
+  appId: "1:906681488094:web:597d7eef813cd564c8a84f",
+  measurementId: "G-KLRRLM8V3J"
 };
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const db = getFirestore(app);
+
+// 이후 db를 사용하여 Firestore 연동 코드 작성
 
 document.getElementById('assetForm').addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -16,6 +30,8 @@ document.getElementById('assetForm').addEventListener('submit', async (e) => {
 
   // Firestore에 자산 정보 저장
   await db.collection('assets').add({
+
+    
     name,
     description,
     serialNumber,

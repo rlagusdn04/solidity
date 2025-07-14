@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "trove-28de5"
+  },
+  "targets": {
+    "trove-28de5": {
+      "hosting": {
+        "solidity": [
+          "trove-28de5"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

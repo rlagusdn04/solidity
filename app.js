@@ -2,7 +2,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-analytics.js";
 import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, RecaptchaVerifier, signInWithPhoneNumber } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -78,3 +78,42 @@ document.getElementById('assetForm').addEventListener('submit', async (e) => {
   alert('자산이 등록되었습니다!');
   // 자산 목록 새로고침 등 추가 구현
 }); 
+
+// 전화번호 로그인 관련
+window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
+  'size': 'normal',
+  'callback': (response) => {
+    // reCAPTCHA solved
+  }
+}, auth);
+
+const phoneLoginForm = document.getElementById('phone-login-form');
+const codeVerifyForm = document.getElementById('code-verify-form');
+const phoneLoginMessage = document.getElementById('phone-login-message');
+let confirmationResult = null;
+
+if (phoneLoginForm && codeVerifyForm) {
+  phoneLoginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const phoneNumber = document.getElementById('phone-number').value;
+    try {
+      confirmationResult = await signInWithPhoneNumber(auth, phoneNumber, window.recaptchaVerifier);
+      phoneLoginMessage.textContent = '인증번호가 전송되었습니다.';
+      codeVerifyForm.style.display = 'block';
+    } catch (error) {
+      phoneLoginMessage.textContent = '오류: ' + error.message;
+    }
+  });
+
+  codeVerifyForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const code = document.getElementById('verification-code').value;
+    try {
+      await confirmationResult.confirm(code);
+      phoneLoginMessage.textContent = '로그인 성공!';
+      codeVerifyForm.style.display = 'none';
+    } catch (error) {
+      phoneLoginMessage.textContent = '인증 실패: ' + error.message;
+    }
+  });
+} 

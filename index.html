@@ -16,19 +16,34 @@
       <span id="user-info"></span>
     </div>
   </div>
-  <div id="register-asset">
-    <h2>자산 등록</h2>
-    <form id="assetForm">
-      <input type="text" id="name" placeholder="자산명" required />
-      <input type="text" id="description" placeholder="설명" required />
-      <input type="text" id="serialNumber" placeholder="시리얼번호" required />
-      <input type="text" id="metadataURI" placeholder="메타데이터 URI" required />
-      <button type="submit">NFT 발행</button>
-    </form>
-  </div>
-  <div id="asset-list">
-    <h2>등록된 자산</h2>
-    <ul id="assets"></ul>
+  <div class="container">
+    <div id="phone-auth-section" class="card">
+      <h2>전화번호 로그인</h2>
+      <form id="phone-login-form">
+        <input type="tel" id="phone-number" placeholder="전화번호(+821012345678)" required />
+        <div id="recaptcha-container"></div>
+        <button type="submit">인증번호 받기</button>
+      </form>
+      <form id="code-verify-form" style="display:none;">
+        <input type="text" id="verification-code" placeholder="인증번호" required />
+        <button type="submit">인증</button>
+      </form>
+      <div id="phone-login-message"></div>
+    </div>
+    <div id="register-asset" class="card">
+      <h2>자산 등록</h2>
+      <form id="assetForm">
+        <input type="text" id="name" placeholder="자산명" required />
+        <input type="text" id="description" placeholder="설명" required />
+        <input type="text" id="serialNumber" placeholder="시리얼번호" required />
+        <input type="text" id="metadataURI" placeholder="메타데이터 URI" required />
+        <button type="submit">NFT 발행</button>
+      </form>
+    </div>
+    <div id="asset-list" class="card">
+      <h2>등록된 자산</h2>
+      <ul id="assets"></ul>
+    </div>
   </div>
 </body>
 </html> 

@@ -1,9 +1,8 @@
-// Firebase SDK 초기화 (자신의 config로 교체)
+// Firebase SDK 초기화 (실제 프로젝트 config로 적용)
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  // ... 기타 설정
+  apiKey: "AIzaSyDCa1rKcGYEAOCVsNWcxjBwj7tkLLHPQPs",
+  authDomain: "trove-28de5.firebaseapp.com",
+  projectId: "trove-28de5",
 };
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();

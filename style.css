@@ -1,22 +1,61 @@
+#header-bar {
+  width: 100%;
+  background: #111;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  height: 48px;
+  box-sizing: border-box;
+}
+#main-title {
+  color: #fff;
+  font-size: 1.35rem;
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+#auth-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+#auth-section button {
+  background: transparent;
+  color: #fff;
+  border: 1.5px solid #fff;
+  border-radius: 18px;
+  padding: 4px 16px;
+  font-size: 0.98rem;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, border 0.18s;
+  box-shadow: none;
+  font-weight: 500;
+}
+#auth-section button:hover {
+  background: #222;
+  color: #fff;
+  border: 1.5px solid #bbb;
+}
+#user-info {
+  font-size: 0.95rem;
+  color: #eee;
+  margin-left: 8px;
+}
 body {
-  font-family: 'Noto Sans KR', sans-serif;
-  background: #f5f5f5;
   margin: 0;
   padding: 0;
+  font-family: 'Noto Sans KR', Arial, sans-serif;
+  background: #fafbfc;
+}
+#register-asset, #asset-list {
+  margin-top: 32px;
 }
 h1 {
   background: #222;
   color: #fff;
   padding: 20px;
   margin: 0;
-}
-#register-asset, #asset-list {
-  background: #fff;
-  margin: 20px auto;
-  padding: 20px;
-  max-width: 500px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 input, button {
   margin: 5px 0;
@@ -51,15 +90,4 @@ button:hover {
   background: #fff;
   color: #111;
   border: 1px solid #111;
-}
-#auth-section {
-  margin-bottom: 18px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-#user-info {
-  font-size: 0.95rem;
-  color: #333;
-  margin-left: 4px;
 } 

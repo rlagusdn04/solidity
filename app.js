@@ -26,13 +26,139 @@ const loginBtn = document.getElementById('google-login-btn');
 const logoutBtn = document.getElementById('logout-btn');
 const userInfo = document.getElementById('user-info');
 
-loginBtn.addEventListener('click', async () => {
+// 모달 관련
+const loginModal = document.getElementById('login-modal');
+const openModalBtn = document.getElementById('google-login-btn');
+const closeModalBtn = document.getElementById('close-modal');
+const modalGoogleLoginBtn = document.getElementById('modal-google-login');
+const modalPhoneLoginBtn = document.getElementById('modal-phone-login');
+const modalPhoneForm = document.getElementById('modal-phone-form');
+const modalCodeForm = document.getElementById('modal-code-form');
+const modalPhoneMessage = document.getElementById('modal-phone-message');
+
+// 모달 열기/닫기
+openModalBtn.addEventListener('click', () => {
+  loginModal.style.display = 'flex';
+  modalPhoneForm.style.display = 'none';
+  modalCodeForm.style.display = 'none';
+  modalPhoneMessage.textContent = '';
+});
+closeModalBtn.addEventListener('click', () => {
+  loginModal.style.display = 'none';
+});
+
+// 구글 로그인 선택
+modalGoogleLoginBtn.addEventListener('click', async () => {
+  loginModal.style.display = 'none';
   try {
     await signInWithPopup(auth, provider);
   } catch (error) {
     alert('로그인 실패: ' + error.message);
   }
 });
+
+// 전화번호 로그인 선택
+modalPhoneLoginBtn.addEventListener('click', () => {
+  modalPhoneForm.style.display = 'block';
+  modalCodeForm.style.display = 'none';
+  modalPhoneMessage.textContent = '';
+});
+
+// reCAPTCHA verifier (모달용)
+let modalRecaptchaVerifier = null;
+let modalConfirmationResult = null;
+
+function ensureModalRecaptcha() {
+  if (!modalRecaptchaVerifier) {
+    if (auth) {
+      modalRecaptchaVerifier = new RecaptchaVerifier('modal-recaptcha-container', {
+        'size': 'normal',
+        'callback': (response) => {},
+      }, auth);
+      modalRecaptchaVerifier.render();
+    } else {
+      modalPhoneMessage.textContent = '인증 시스템 초기화 중입니다. 잠시 후 다시 시도해 주세요.';
+    }
+  }
+}
+modalPhoneLoginBtn.addEventListener('click', ensureModalRecaptcha);
+
+// 인증번호 받기
+modalPhoneForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const phoneNumber = document.getElementById('modal-phone-number').value;
+  try {
+    modalConfirmationResult = await signInWithPhoneNumber(auth, phoneNumber, modalRecaptchaVerifier);
+    modalPhoneMessage.textContent = '인증번호가 전송되었습니다.';
+    modalCodeForm.style.display = 'block';
+  } catch (error) {
+    modalPhoneMessage.textContent = '오류: ' + error.message;
+  }
+});
+// 인증번호 확인
+modalCodeForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const code = document.getElementById('modal-verification-code').value;
+  try {
+    await modalConfirmationResult.confirm(code);
+    modalPhoneMessage.textContent = '로그인 성공!';
+    setTimeout(() => { loginModal.style.display = 'none'; }, 800);
+    modalCodeForm.style.display = 'none';
+  } catch (error) {
+    modalPhoneMessage.textContent = '인증 실패: ' + error.message;
+  }
+});
+
+
+// 기존 loginBtn(google-login-btn) 클릭 시 바로 구글 로그인 실행되는 부분 제거
+// loginBtn.addEventListener('click', async () => { ... }); // 이 부분 삭제 또는 주석처리
+// 대신 openModalBtn(google-login-btn) 클릭 시 모달만 뜨도록 위에서 처리함
+
+// RecaptchaVerifier 생성 시 auth가 undefined가 아니어야 함
+let modalRecaptchaVerifier = null;
+function ensureModalRecaptcha() {
+  if (!modalRecaptchaVerifier) {
+    if (auth) {
+      modalRecaptchaVerifier = new RecaptchaVerifier('modal-recaptcha-container', {
+        'size': 'normal',
+        'callback': (response) => {},
+      }, auth);
+      modalRecaptchaVerifier.render();
+    } else {
+      modalPhoneMessage.textContent = '인증 시스템 초기화 중입니다. 잠시 후 다시 시도해 주세요.';
+    }
+  }
+}
+modalPhoneLoginBtn.addEventListener('click', ensureModalRecaptcha);
+
+let modalConfirmationResult = null;
+
+// 인증번호 받기
+modalPhoneForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const phoneNumber = document.getElementById('modal-phone-number').value;
+  try {
+    modalConfirmationResult = await signInWithPhoneNumber(auth, phoneNumber, modalRecaptchaVerifier);
+    modalPhoneMessage.textContent = '인증번호가 전송되었습니다.';
+    modalCodeForm.style.display = 'block';
+  } catch (error) {
+    modalPhoneMessage.textContent = '오류: ' + error.message;
+  }
+});
+// 인증번호 확인
+modalCodeForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const code = document.getElementById('modal-verification-code').value;
+  try {
+    await modalConfirmationResult.confirm(code);
+    modalPhoneMessage.textContent = '로그인 성공!';
+    setTimeout(() => { loginModal.style.display = 'none'; }, 800);
+    modalCodeForm.style.display = 'none';
+  } catch (error) {
+    modalPhoneMessage.textContent = '인증 실패: ' + error.message;
+  }
+});
+
 
 logoutBtn.addEventListener('click', async () => {
   try {

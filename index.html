@@ -17,19 +17,6 @@
     </div>
   </div>
   <div class="container">
-    <div id="phone-auth-section" class="card">
-      <h2>전화번호 로그인</h2>
-      <form id="phone-login-form">
-        <input type="tel" id="phone-number" placeholder="전화번호(+821012345678)" required />
-        <div id="recaptcha-container"></div>
-        <button type="submit">인증번호 받기</button>
-      </form>
-      <form id="code-verify-form" style="display:none;">
-        <input type="text" id="verification-code" placeholder="인증번호" required />
-        <button type="submit">인증</button>
-      </form>
-      <div id="phone-login-message"></div>
-    </div>
     <div id="register-asset" class="card">
       <h2>자산 등록</h2>
       <form id="assetForm">
@@ -43,6 +30,25 @@
     <div id="asset-list" class="card">
       <h2>등록된 자산</h2>
       <ul id="assets"></ul>
+    </div>
+  </div>
+  <!-- 로그인 방식 선택 모달 -->
+  <div id="login-modal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <button id="close-modal" class="modal-close">×</button>
+      <h3>로그인 방식 선택</h3>
+      <button id="modal-google-login" class="modal-login-btn">구글 계정으로 로그인</button>
+      <button id="modal-phone-login" class="modal-login-btn">전화번호로 로그인</button>
+      <form id="modal-phone-form" style="display:none; margin-top:18px;">
+        <input type="tel" id="modal-phone-number" placeholder="전화번호(+821012345678)" required />
+        <div id="modal-recaptcha-container" style="margin:10px 0;"></div>
+        <button type="submit">인증번호 받기</button>
+      </form>
+      <form id="modal-code-form" style="display:none; margin-top:10px;">
+        <input type="text" id="modal-verification-code" placeholder="인증번호" required />
+        <button type="submit">인증</button>
+      </form>
+      <div id="modal-phone-message" style="margin-top:8px; font-size:0.97rem;"></div>
     </div>
   </div>
 </body>

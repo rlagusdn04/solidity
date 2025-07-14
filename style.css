@@ -123,6 +123,89 @@ body {
   flex-direction: column;
   gap: 4px;
 }
+/* 모달 스타일 */
+.modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.modal-content {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+  padding: 32px 28px 24px 28px;
+  min-width: 280px;
+  max-width: 95vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #888;
+  cursor: pointer;
+}
+.modal h3 {
+  margin: 0 0 18px 0;
+  font-size: 1.13rem;
+  font-weight: 600;
+  color: #222;
+}
+.modal-login-btn {
+  width: 100%;
+  background: #222;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 12px;
+  transition: background 0.18s;
+}
+.modal-login-btn:hover {
+  background: #444;
+}
+#modal-phone-form input, #modal-code-form input {
+  padding: 10px 12px;
+  border: 1.2px solid #e0e3e8;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: #fafbfc;
+  transition: border 0.18s;
+  margin-bottom: 8px;
+}
+#modal-phone-form input:focus, #modal-code-form input:focus {
+  border: 1.2px solid #888;
+  outline: none;
+}
+#modal-phone-form button, #modal-code-form button {
+  background: #222;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 2px;
+  transition: background 0.18s;
+}
+#modal-phone-form button:hover, #modal-code-form button:hover {
+  background: #444;
+}
 @media (max-width: 600px) {
   .container {
     max-width: 100%;

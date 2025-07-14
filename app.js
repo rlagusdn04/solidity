@@ -2,6 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "firebase/auth";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -18,6 +19,40 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const db = getFirestore(app);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+
+const loginBtn = document.getElementById('google-login-btn');
+const logoutBtn = document.getElementById('logout-btn');
+const userInfo = document.getElementById('user-info');
+
+loginBtn.addEventListener('click', async () => {
+  try {
+    await signInWithPopup(auth, provider);
+  } catch (error) {
+    alert('로그인 실패: ' + error.message);
+  }
+});
+
+logoutBtn.addEventListener('click', async () => {
+  try {
+    await signOut(auth);
+  } catch (error) {
+    alert('로그아웃 실패: ' + error.message);
+  }
+});
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    loginBtn.style.display = 'none';
+    logoutBtn.style.display = 'inline-block';
+    userInfo.textContent = user.displayName + ' (' + user.email + ')';
+  } else {
+    loginBtn.style.display = 'inline-block';
+    logoutBtn.style.display = 'none';
+    userInfo.textContent = '';
+  }
+});
 
 // 이후 db를 사용하여 Firestore 연동 코드 작성
 

@@ -58,13 +58,16 @@ modalGoogleLoginBtn.addEventListener('click', async () => {
 });
 
 // 전화번호 로그인 선택
+/* 전화번호 로그인 관련 코드 전체 주석 처리
 modalPhoneLoginBtn.addEventListener('click', () => {
   modalPhoneForm.style.display = 'block';
   modalCodeForm.style.display = 'none';
   modalPhoneMessage.textContent = '';
 });
+*/
 
 // reCAPTCHA verifier (모달용)
+/* 전화번호 로그인 관련 코드 전체 주석 처리
 let modalRecaptchaVerifier = null;
 let modalConfirmationResult = null;
 
@@ -82,8 +85,10 @@ function ensureModalRecaptcha() {
   }
 }
 modalPhoneLoginBtn.addEventListener('click', ensureModalRecaptcha);
+*/
 
 // 인증번호 받기
+/* 전화번호 로그인 관련 코드 전체 주석 처리
 modalPhoneForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   const phoneNumber = document.getElementById('modal-phone-number').value;
@@ -95,7 +100,9 @@ modalPhoneForm.addEventListener('submit', async (e) => {
     modalPhoneMessage.textContent = '오류: ' + error.message;
   }
 });
+*/
 // 인증번호 확인
+/* 전화번호 로그인 관련 코드 전체 주석 처리
 modalCodeForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   const code = document.getElementById('modal-verification-code').value;
@@ -108,6 +115,7 @@ modalCodeForm.addEventListener('submit', async (e) => {
     modalPhoneMessage.textContent = '인증 실패: ' + error.message;
   }
 });
+*/
 
 
 // 기존 loginBtn(google-login-btn) 클릭 시 바로 구글 로그인 실행되는 부분 제거
@@ -115,6 +123,7 @@ modalCodeForm.addEventListener('submit', async (e) => {
 // 대신 openModalBtn(google-login-btn) 클릭 시 모달만 뜨도록 위에서 처리함
 
 // RecaptchaVerifier 생성 시 auth가 undefined가 아니어야 함
+/* 전화번호 로그인 관련 코드 전체 주석 처리
 let modalRecaptchaVerifier = null;
 function ensureModalRecaptcha() {
   if (!modalRecaptchaVerifier) {
@@ -130,34 +139,37 @@ function ensureModalRecaptcha() {
   }
 }
 modalPhoneLoginBtn.addEventListener('click', ensureModalRecaptcha);
+*/
 
+/* 전화번호 로그인 관련 코드 전체 주석 처리
 let modalConfirmationResult = null;
 
 // 인증번호 받기
-modalPhoneForm.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const phoneNumber = document.getElementById('modal-phone-number').value;
-  try {
-    modalConfirmationResult = await signInWithPhoneNumber(auth, phoneNumber, modalRecaptchaVerifier);
-    modalPhoneMessage.textContent = '인증번호가 전송되었습니다.';
-    modalCodeForm.style.display = 'block';
-  } catch (error) {
-    modalPhoneMessage.textContent = '오류: ' + error.message;
-  }
-});
+// modalPhoneForm.addEventListener('submit', async (e) => {
+//   e.preventDefault();
+//   const phoneNumber = document.getElementById('modal-phone-number').value;
+//   try {
+//     modalConfirmationResult = await signInWithPhoneNumber(auth, phoneNumber, modalRecaptchaVerifier);
+//     modalPhoneMessage.textContent = '인증번호가 전송되었습니다.';
+//     modalCodeForm.style.display = 'block';
+//   } catch (error) {
+//     modalPhoneMessage.textContent = '오류: ' + error.message;
+//   }
+// });
 // 인증번호 확인
-modalCodeForm.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const code = document.getElementById('modal-verification-code').value;
-  try {
-    await modalConfirmationResult.confirm(code);
-    modalPhoneMessage.textContent = '로그인 성공!';
-    setTimeout(() => { loginModal.style.display = 'none'; }, 800);
-    modalCodeForm.style.display = 'none';
-  } catch (error) {
-    modalPhoneMessage.textContent = '인증 실패: ' + error.message;
-  }
-});
+// modalCodeForm.addEventListener('submit', async (e) => {
+//   e.preventDefault();
+//   const code = document.getElementById('modal-verification-code').value;
+//   try {
+//     await modalConfirmationResult.confirm(code);
+//     modalPhoneMessage.textContent = '로그인 성공!';
+//     setTimeout(() => { loginModal.style.display = 'none'; }, 800);
+//     modalCodeForm.style.display = 'none';
+//   } catch (error) {
+//     modalPhoneMessage.textContent = '인증 실패: ' + error.message;
+//   }
+// });
+*/
 
 
 logoutBtn.addEventListener('click', async () => {

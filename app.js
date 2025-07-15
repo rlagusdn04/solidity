@@ -205,41 +205,5 @@ document.getElementById('assetForm').addEventListener('submit', async (e) => {
   // 자산 목록 새로고침 등 추가 구현
 }); 
 
-// 전화번호 로그인 관련
-window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
-  'size': 'normal',
-  'callback': (response) => {
-    // reCAPTCHA solved
-  }
-}, auth);
-
-const phoneLoginForm = document.getElementById('phone-login-form');
-const codeVerifyForm = document.getElementById('code-verify-form');
-const phoneLoginMessage = document.getElementById('phone-login-message');
-let confirmationResult = null;
-
-if (phoneLoginForm && codeVerifyForm) {
-  phoneLoginForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const phoneNumber = document.getElementById('phone-number').value;
-    try {
-      confirmationResult = await signInWithPhoneNumber(auth, phoneNumber, window.recaptchaVerifier);
-      phoneLoginMessage.textContent = '인증번호가 전송되었습니다.';
-      codeVerifyForm.style.display = 'block';
-    } catch (error) {
-      phoneLoginMessage.textContent = '오류: ' + error.message;
-    }
-  });
-
-  codeVerifyForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const code = document.getElementById('verification-code').value;
-    try {
-      await confirmationResult.confirm(code);
-      phoneLoginMessage.textContent = '로그인 성공!';
-      codeVerifyForm.style.display = 'none';
-    } catch (error) {
-      phoneLoginMessage.textContent = '인증 실패: ' + error.message;
-    }
-  });
-} 
+// 전화번호 로그인 관련 코드 완전 삭제 (import, 변수, 함수, 이벤트 등)
+// ... 기존 구글 로그인/로그아웃/상태관리 로직은 그대로 ... 
